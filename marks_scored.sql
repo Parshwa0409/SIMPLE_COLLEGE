@@ -1,0 +1,59 @@
+USE SIMPLE_COLLEGE;
+
+-- NO STUDENT CAN HAVE DUPLICATE MARKS-RECORD FOR THE SAME SUBJECT, HE/SHE CAN IF WE HAVE MULTIPLE EXAM TABLES.
+
+CREATE TABLE IF NOT EXISTS MarksScored(
+    StudentID varchar(16),
+    CourseID varchar(9),
+    Marks int,
+    PRIMARY KEY (StudentID,CourseID),
+    FOREIGN KEY (StudentID) REFERENCES Users(ID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(ID)
+);
+
+
+INSERT INTO MarksScored VALUES("1NH20CS151","20CSE71",99);
+INSERT INTO MarksScored VALUES("1NH20CS151","20CSE72",99);
+
+INSERT INTO MarksScored VALUES("1NH20CS125","20CSE71",95);
+INSERT INTO MarksScored VALUES("1NH20CS125","20CSE72",94);
+
+INSERT INTO MarksScored VALUES("1NH20CS145","20CSE71",90);
+INSERT INTO MarksScored VALUES("1NH20CS145","20CSE72",90);
+
+INSERT INTO MarksScored VALUES("1NH20IS006","20ISE71",90);
+INSERT INTO MarksScored VALUES("1NH20IS006","20ISE72",90);
+
+INSERT INTO MarksScored VALUES("1NH20IS120","20ISE71",96);
+INSERT INTO MarksScored VALUES("1NH20IS120","20ISE72",96);
+
+INSERT INTO MarksScored VALUES("1NH20AI036","20AIML71",96);
+INSERT INTO MarksScored VALUES("1NH20AI036","20AIML72",96);
+
+
+-- GET MARK SHEET OF ALL STUDENTS
+
+/*
+SELECT 
+    StudentID, 
+    DepartmentID,
+    Users.Name, 
+    Courses.Name, 
+    Marks 
+FROM MarksScored 
+    INNER JOIN Users ON Users.ID=StudentID 
+    INNER JOIN Courses ON MarksScored.CourseID=Courses.ID;
+*/
+
+-- GET TOTAL MARKS
+
+/*
+SELECT 
+    StudentID, 
+    Name, 
+    Sum(Marks) AS TotalMarks 
+FROM MarksScored 
+    INNER JOIN Users on Users.ID=StudentID  
+GROUP BY StudentID 
+ORDER BY TotalMarks;
+*/
