@@ -52,3 +52,12 @@ FROM MarksScored
 GROUP BY StudentID 
 ORDER BY Total;
 
+-- EACH DEPARTMENT & THEIR HOD
+CREATE VIEW HOD AS
+SELECT 
+    ID,
+    DeptID,
+    Name,
+    Email 
+FROM DepartmentHOD 
+INNER JOIN Users ON HOD=ID;
